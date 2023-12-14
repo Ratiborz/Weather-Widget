@@ -5,7 +5,7 @@ import { Home } from "./pages/Home/Home";
 import { Header } from "./pages/shared/Header/Header";
 
 function App() {
-  return <div className="App">
+  return <div className="container">
     <Header />
     <Routes>
       <Route path="/" exact element={<Home/>} />
