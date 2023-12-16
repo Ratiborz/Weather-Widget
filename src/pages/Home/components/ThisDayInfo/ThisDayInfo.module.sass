@@ -1,21 +1,47 @@
-.header 
+@import '../../../../styles/variables'
+
+.this__day_info
+    position: relative
+    padding: 40px
+    max-width: 750px
+    width: 100%
+    background: $lite-background
+    box-shadow: $box-shadow
+    border-radius: $border-radius
+
+.item
+    position: relative
     display: flex
     align-items: center
-    justify-content: space-between
+    margin-bottom: 25px
+    z-index: 10
+    &:last-of-type
+        margin-bottom: 0
+    .indicator,
+    .indicator__name
+        margin-right: 20px
 
-.wrapper 
+.indicator
     display: flex
     align-items: center
+    justify-content: center
+    width: 38px
+    height: 38px
+    background-color: #fff
+    box-shadow:  2px 5px 25px -3px rgba(180, 180, 180, 0.25)
+    border-radius: 50%
 
-.change_theme, .logo
-    margin-right: 20px
+.indicator__name, .indicator__value 
+    font-size: 14px
 
-.logo 
-    svg 
-        width: 65px
-        height: 65px
+.indicator__name
+    color: $base-color
 
-.title
-    font-size: 25px
-    font-weight: 700
-    text-transform: uppercase
+.indicator__value
+    color: $lite-color
+
+.cloud__img
+    position: absolute
+    top: 0
+    right: 0
+    
