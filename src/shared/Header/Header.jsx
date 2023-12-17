@@ -1,6 +1,6 @@
 import React from 'react';
 import s from './Header.module.sass';
-import { GlobalSvgSelector } from '../../../assets/icons/global/GlobalSvgSelector';
+import { GlobalSvgSelector } from '../../assets/icons/global/GlobalSvgSelector';
 import Select from 'react-select';
 
 

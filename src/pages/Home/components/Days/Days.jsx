@@ -1,6 +1,7 @@
 import React from 'react';
 import s from './Days.module.sass';
 import { Card } from './Card';
+import { Tabs } from './Tabs';
 
 
 export const Days = () => {
@@ -63,10 +64,13 @@ export const Days = () => {
       }
   ]
   return (
+    <>
+    <Tabs />
     <div className={s.days}>{
         days.map((day) => (
             <Card key={day.day_common} day={day} />
         )) 
     }</div>
+    </>
   )
 }
