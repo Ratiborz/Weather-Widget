@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import s from './Header.module.sass';
 import { GlobalSvgSelector } from '../../assets/icons/global/GlobalSvgSelector';
 import Select from 'react-select';
+import { ChangeCssRootVariables } from '../../model/ChangeCssRootVariables';
+import { storage } from '../../model/Storage';
 
 
 export const Header = () => {
@@ -11,17 +13,32 @@ export const Header = () => {
     { value: 'city-3', label: 'Санкт-Петербург' }
   ]
 
+const [theme, setTheme] = useState(storage.getItem('theme') || 'light');
+
   const colorStyles = {
     control: (styles) => ({
       ...styles,
-      backgroundColor: 'rgba(71, 147, 255, 0.20)',
+      backgroundColor: theme === 'dark' ? '#4f4f4f' : 'rgba(71, 147, 255, 0.20)',
       width: '194px',
       height: '37',
       border: 'none',
       borderRadius: '10px',
       zIndex: '10'
-    })
+    }),
+    singleValue: (styles) => ({
+      ...styles,
+      color: theme === 'dark' ? '#fff' : '#000',
+    }),
   }
+
+function changeTheme() {
+  setTheme(prevTheme => (prevTheme === 'light' ? 'dark' : 'light'));
+}
+
+useEffect(() => {
+  storage.setItem('theme', theme);
+  ChangeCssRootVariables(theme);
+}, [theme])
 
   return (
     <header className={s.header}>
@@ -32,7 +49,7 @@ export const Header = () => {
             <p className={s.title}>React weather</p>
         </div>
         <div className={s.wrapper}>
-          <div className={s.change_theme}> 
+          <div className={s.change_theme} onClick={changeTheme}> 
             <GlobalSvgSelector id="change-theme" />
           </div>
           <Select defaultValue={options[0]} styles={colorStyles} options={options} />
