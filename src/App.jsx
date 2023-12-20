@@ -24,7 +24,7 @@ export default App;
 
 /*async function apiRequests() {
   try {
-      const url = `https://api.openweathermap.org/data/2.5/forecast?lat=57&lon=-2.15&cnt=8&appid=aa302d9baf187e648240b52a933d9fdc`;
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=Калинковичи&appid=aa302d9baf187e648240b52a933d9fdc&lang=ru`;
       const response = await fetch(url);
 
       const data = await response.json();
@@ -33,4 +33,4 @@ export default App;
       console.error('Error fetching data: ', error);
   }
 }
-apiRequests();*/
+apiRequests(); */

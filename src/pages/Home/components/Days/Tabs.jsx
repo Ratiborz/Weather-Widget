@@ -5,13 +5,7 @@ import s from './Days.module.sass';
 export const Tabs = () => {
   const tabs = [
     {
-      value: 'На неделю',
-    },
-    {
-      value: 'На 10 дней',
-    },
-    {
-      value: 'На месяц',
+      value: 'На 5 дней',
     },
   ];
   return (

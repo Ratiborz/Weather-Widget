@@ -29,6 +29,10 @@ const [theme, setTheme] = useState(storage.getItem('theme') || 'light');
       ...styles,
       color: theme === 'dark' ? '#fff' : '#000',
     }),
+    Input: (styles) => ({
+      ...styles,
+      color: theme === 'dark' ? '#fff' : '#000',
+    })
   }
 
 function changeTheme() {
@@ -52,7 +56,10 @@ useEffect(() => {
           <div className={s.change_theme} onClick={changeTheme}> 
             <GlobalSvgSelector id="change-theme" />
           </div>
-          <Select defaultValue={options[0]} styles={colorStyles} options={options} />
+          <div className={s.change_theme}> 
+            <GlobalSvgSelector id="geolocation" />
+          </div>
+          <input className={s.select}/>
         </div>
     </header>
   )
