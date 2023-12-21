@@ -1,39 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import s from './Header.module.sass';
 import { GlobalSvgSelector } from '../../assets/icons/global/GlobalSvgSelector';
-import Select from 'react-select';
 import { ChangeCssRootVariables } from '../../model/ChangeCssRootVariables';
 import { storage } from '../../model/Storage';
+import { requestByCity } from '../../model/RequestByCity'
 
 
 export const Header = () => {
-  const options = [
-    { value: 'city-1', label: 'Минск' },
-    { value: 'city-2', label: 'Москва' },
-    { value: 'city-3', label: 'Санкт-Петербург' }
-  ]
 
 const [theme, setTheme] = useState(storage.getItem('theme') || 'light');
+const [city, setCity] = useState('');
 
-  const colorStyles = {
-    control: (styles) => ({
-      ...styles,
-      backgroundColor: theme === 'dark' ? '#4f4f4f' : 'rgba(71, 147, 255, 0.20)',
-      width: '194px',
-      height: '37',
-      border: 'none',
-      borderRadius: '10px',
-      zIndex: '10'
-    }),
-    singleValue: (styles) => ({
-      ...styles,
-      color: theme === 'dark' ? '#fff' : '#000',
-    }),
-    Input: (styles) => ({
-      ...styles,
-      color: theme === 'dark' ? '#fff' : '#000',
-    })
-  }
+function changeStyleInput() {
+  return (
+    { 
+      backgroundColor: theme === 'dark' ? '#4f4f4f' : 'rgba(71, 147, 255, 0.20)', 
+      color: theme === 'dark' ? '#fff' : '#000', 
+      "::placeholder": {
+          color: theme === 'dark' ? '#ccc' : '#555'
+      },
+    }
+  )
+}
 
 function changeTheme() {
   setTheme(prevTheme => (prevTheme === 'light' ? 'dark' : 'light'));
@@ -43,6 +31,14 @@ useEffect(() => {
   storage.setItem('theme', theme);
   ChangeCssRootVariables(theme);
 }, [theme])
+
+const handleCityChange = (event) => {
+  setCity(event.target.value);
+};
+
+const handleRequestCity = () => {
+  requestByCity(city);
+};
 
   return (
     <header className={s.header}>
@@ -59,7 +55,10 @@ useEffect(() => {
           <div className={s.change_theme}> 
             <GlobalSvgSelector id="geolocation" />
           </div>
-          <input className={s.select}/>
+          <div className={s.send__form}>
+            <input className={s.select} placeholder='Город...' value={city} onChange={handleCityChange} type="text" style={changeStyleInput()} />
+            <button className={s.send__select} style={changeStyleInput()} onClick={handleRequestCity}> Отправить</button>
+          </div>
         </div>
     </header>
   )
