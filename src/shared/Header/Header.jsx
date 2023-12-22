@@ -3,13 +3,15 @@ import s from './Header.module.sass';
 import { GlobalSvgSelector } from '../../assets/icons/global/GlobalSvgSelector';
 import { ChangeCssRootVariables } from '../../model/ChangeCssRootVariables';
 import { storage } from '../../model/Storage';
-import { requestByCity } from '../../model/RequestByCity'
+import { requestByCity } from '../../model/RequestByCity';
+import { ThisDay } from '../../pages/Home/components/ThisDay/ThisDay';
 
 
 export const Header = () => {
 
 const [theme, setTheme] = useState(storage.getItem('theme') || 'light');
 const [city, setCity] = useState('');
+const [weatherData, setWeatherData] = useState(null);
 
 function changeStyleInput() {
   return (
@@ -17,7 +19,7 @@ function changeStyleInput() {
       backgroundColor: theme === 'dark' ? '#4f4f4f' : 'rgba(71, 147, 255, 0.20)', 
       color: theme === 'dark' ? '#fff' : '#000', 
       "::placeholder": {
-          color: theme === 'dark' ? '#ccc' : '#555'
+          color: theme === 'dark' ? '#ccc' : '#555',
       },
     }
   )
@@ -30,14 +32,16 @@ function changeTheme() {
 useEffect(() => {
   storage.setItem('theme', theme);
   ChangeCssRootVariables(theme);
-}, [theme])
+}, [theme]);
 
 const handleCityChange = (event) => {
   setCity(event.target.value);
 };
 
-const handleRequestCity = () => {
-  requestByCity(city);
+const handleRequestCity = async () => {
+  const data = await requestByCity(city);
+  setWeatherData(data);
+  
 };
 
   return (
@@ -60,6 +64,7 @@ const handleRequestCity = () => {
             <button className={s.send__select} style={changeStyleInput()} onClick={handleRequestCity}> Отправить</button>
           </div>
         </div>
+        { <ThisDay data={weatherData} />}
     </header>
   )
 }

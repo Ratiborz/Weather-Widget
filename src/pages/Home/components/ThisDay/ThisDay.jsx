@@ -1,14 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import s from './ThisDay.module.sass';
 import { GlobalSvgSelector } from '../../../../assets/icons/global/GlobalSvgSelector';
 
 
-export const ThisDay = () => {
+export const ThisDay = ({data}) => {
+  const [cityName, setCityName] = useState('Санкт-Петербург');
+  const [temp, setTemp] = useState(20);
+
+  useEffect(() => {
+    if (data && data.name) {
+      setCityName(data.name);
+      setTemp(data.main.temp - 273.15)
+      console.log(data)
+    }
+  }, [data]);
+
   return (
     <div className={s.this__day}>
       <div className={s.top__block}>
         <div className={s.top__block_wrapper}>
-          <div className={s.this__temp}>20°</div>
+          <div className={s.this__temp}>{Math.floor(temp.toFixed(2))}°</div>
           <div className={s.this__day_name}>Сегодня</div>
         </div>
         <GlobalSvgSelector id="sun" />
@@ -18,7 +29,7 @@ export const ThisDay = () => {
           Время: <span>21:55</span>
         </div>
         <div className={s.this__city}>
-          Город: <span>Санкт-Петербург</span>
+          Город: <span>{cityName}</span>
         </div>
       </div>
     </div>
