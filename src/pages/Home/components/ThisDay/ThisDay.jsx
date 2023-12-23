@@ -1,19 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import s from './ThisDay.module.sass';
 import { GlobalSvgSelector } from '../../../../assets/icons/global/GlobalSvgSelector';
+import { WeatherDataContext } from '../../../../shared/Header/Header';
 
 
-export const ThisDay = ({data}) => {
+export const ThisDay = () => {
   const [cityName, setCityName] = useState('Санкт-Петербург');
   const [temp, setTemp] = useState(20);
 
-  useEffect(() => {
-    if (data && data.name) {
-      setCityName(data.name);
-      setTemp(data.main.temp - 273.15)
-      console.log(data)
+ /* useEffect(() => {
+    if (weatherData && weatherData.name) {
+      setCityName(weatherData.name);
+      setTemp(weatherData.main.temp - 273.15)
+      //console.log(weatherData)
     }
-  }, [data]);
+  }, [weatherData]); */
 
   return (
     <div className={s.this__day}>

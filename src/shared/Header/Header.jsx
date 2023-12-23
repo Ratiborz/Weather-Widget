@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import s from './Header.module.sass';
 import { GlobalSvgSelector } from '../../assets/icons/global/GlobalSvgSelector';
 import { ChangeCssRootVariables } from '../../model/ChangeCssRootVariables';
 import { storage } from '../../model/Storage';
 import { requestByCity } from '../../model/RequestByCity';
-import { ThisDay } from '../../pages/Home/components/ThisDay/ThisDay';
-
+//import { ThisDay } from '../../pages/Home/components/ThisDay/ThisDay';
 
 export const Header = () => {
 
@@ -41,30 +40,29 @@ const handleCityChange = (event) => {
 const handleRequestCity = async () => {
   const data = await requestByCity(city);
   setWeatherData(data);
-  
+  console.log(weatherData)
 };
 
   return (
-    <header className={s.header}>
-        <div className={s.wrapper}>
-            <div className={s.logo}>
-              <GlobalSvgSelector id="header-logo" />
+      <header className={s.header}>
+          <div className={s.wrapper}>
+              <div className={s.logo}>
+                <GlobalSvgSelector id="header-logo" />
+              </div>
+              <p className={s.title}>React weather</p>
+          </div>
+          <div className={s.wrapper}>
+            <div className={s.change_theme} onClick={changeTheme}> 
+              <GlobalSvgSelector id="change-theme" />
             </div>
-            <p className={s.title}>React weather</p>
-        </div>
-        <div className={s.wrapper}>
-          <div className={s.change_theme} onClick={changeTheme}> 
-            <GlobalSvgSelector id="change-theme" />
+            <div className={s.change_theme}> 
+              <GlobalSvgSelector id="geolocation" />
+            </div>
+            <div className={s.send__form}>
+              <input className={s.select} placeholder='Город...' value={city} onChange={handleCityChange} type="text" style={changeStyleInput()} />
+              <button className={s.send__select} style={changeStyleInput()} onClick={handleRequestCity}> Отправить</button>
+            </div>
           </div>
-          <div className={s.change_theme}> 
-            <GlobalSvgSelector id="geolocation" />
-          </div>
-          <div className={s.send__form}>
-            <input className={s.select} placeholder='Город...' value={city} onChange={handleCityChange} type="text" style={changeStyleInput()} />
-            <button className={s.send__select} style={changeStyleInput()} onClick={handleRequestCity}> Отправить</button>
-          </div>
-        </div>
-        { <ThisDay data={weatherData} />}
-    </header>
+      </header>
   )
 }
