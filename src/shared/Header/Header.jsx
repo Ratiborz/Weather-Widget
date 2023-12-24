@@ -5,13 +5,13 @@ import { ChangeCssRootVariables } from '../../model/ChangeCssRootVariables';
 import { storage } from '../../model/Storage';
 import { requestByCity } from '../../model/RequestByCity';
 import { WeatherContext } from '../../context/weatherData'
+import { requestByGeo } from '../../model/RequestByGeolocation'
 
 export const Header = () => {
+  const { weatherData, setWeatherData } = useContext(WeatherContext);
 
-const { weatherData, setWeatherData } = useContext(WeatherContext);
-
-const [theme, setTheme] = useState(storage.getItem('theme') || 'light');
-const [city, setCity] = useState('');
+  const [theme, setTheme] = useState(storage.getItem('theme') || 'light');
+  const [city, setCity] = useState('');
 
 function changeStyleInput() {
   return (
@@ -43,6 +43,12 @@ const handleRequestCity = async () => {
   setWeatherData(data);
 };
 
+const handleRequestGeo =  async () => {
+  const data = await requestByGeo();
+  setWeatherData(data);
+  console.log(data)
+}
+
   return (
       <header className={s.header}>
           <div className={s.wrapper}>
@@ -55,8 +61,8 @@ const handleRequestCity = async () => {
             <div className={s.change_theme} onClick={changeTheme}> 
               <GlobalSvgSelector id="change-theme" />
             </div>
-            <div className={s.change_theme}> 
-              <GlobalSvgSelector id="geolocation" />
+            <div className={s.change_theme} onClick={handleRequestGeo}> 
+              <GlobalSvgSelector id="geolocation"  />
             </div>
             <div className={s.send__form}>
               <input className={s.select} placeholder='Город...' value={city} onChange={handleCityChange} type="text" style={changeStyleInput()} />

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import s from './ThisDayInfo.module.sass';
 import cloud from '../../../../assets/images/Cloud.png'
 import { ThisDayItem } from './ThisDayItem'
@@ -8,10 +8,21 @@ import { windConfig } from '../../../../model/utils';
 export const ThisDayInfo = () => {
   const { weatherData } = useContext(WeatherContext);
 
-  const temp = Math.floor((weatherData.main.temp - 273.15).toFixed(2));
-  const feelsLikeTemp = Math.floor((weatherData.main.feels_like - 273.15).toFixed(2));
-  const pressure = Math.floor(0.750062 * weatherData.main.pressure);
-  const humidity = weatherData.main.humidity;
+  const [temp, setTemp] = useState(20);
+  const [feelsLikeTemp, setFeelsLikeTemp] = useState(17);
+  const [pressure, setPressure] = useState(755);
+  const [humidity, setHumidity] = useState(47);
+  const [wind, setWind] = useState('3 м/с юго-запад - легкий ветер');
+
+  useEffect(() => {
+    if (weatherData) {
+      setTemp(Math.floor((weatherData.main.temp - 273.15).toFixed(2)));
+      setFeelsLikeTemp(Math.floor((weatherData.main.feels_like - 273.15).toFixed(2)));
+      setPressure(Math.floor(0.750062 * weatherData.main.pressure));
+      setHumidity(weatherData.main.humidity);
+      setWind(windConfig(weatherData.wind.speed, weatherData.wind.deg));
+    }
+  }, [weatherData]);
 
   const items = [
     {
@@ -32,7 +43,7 @@ export const ThisDayInfo = () => {
     {
       icon_id: 'wind',
       name: 'Ветер',
-      value: `${windConfig(weatherData.wind.speed, weatherData.wind.deg)}`,
+      value: `${wind}`,
     },
   ];
 
