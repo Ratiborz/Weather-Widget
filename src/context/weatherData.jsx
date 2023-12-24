@@ -1,16 +1,15 @@
-import React, { createContext } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 
 export const WeatherContext = createContext();
 
-function WeatherDataContext() {
-
-  /*const value = {
-    weatherData
-  }*/
+export const WeatherDataContextProvider = ({ children }) => {
+  const [weatherData, setWeatherData] = useState(null);
 
   return (
-    <WeatherContext.Provider /*value={value}*/></WeatherContext.Provider>
+    <WeatherContext.Provider value={{weatherData, setWeatherData}}>{ children }</WeatherContext.Provider>
   )
 }
 
-export default WeatherDataContext;
+export const useWeatherDataContext = () => useContext(WeatherDataContextProvider);
+
+export default WeatherDataContextProvider;

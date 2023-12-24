@@ -1,16 +1,17 @@
-import React, { createContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import s from './Header.module.sass';
 import { GlobalSvgSelector } from '../../assets/icons/global/GlobalSvgSelector';
 import { ChangeCssRootVariables } from '../../model/ChangeCssRootVariables';
 import { storage } from '../../model/Storage';
 import { requestByCity } from '../../model/RequestByCity';
-//import { ThisDay } from '../../pages/Home/components/ThisDay/ThisDay';
+import { WeatherContext } from '../../context/weatherData'
 
 export const Header = () => {
 
+const { weatherData, setWeatherData } = useContext(WeatherContext);
+
 const [theme, setTheme] = useState(storage.getItem('theme') || 'light');
 const [city, setCity] = useState('');
-const [weatherData, setWeatherData] = useState(null);
 
 function changeStyleInput() {
   return (
@@ -40,7 +41,6 @@ const handleCityChange = (event) => {
 const handleRequestCity = async () => {
   const data = await requestByCity(city);
   setWeatherData(data);
-  console.log(weatherData)
 };
 
   return (

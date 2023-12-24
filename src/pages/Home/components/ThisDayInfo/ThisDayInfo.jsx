@@ -1,29 +1,38 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import s from './ThisDayInfo.module.sass';
 import cloud from '../../../../assets/images/Cloud.png'
 import { ThisDayItem } from './ThisDayItem'
+import { WeatherContext } from '../../../../context/weatherData';
+import { windConfig } from '../../../../model/utils';
 
 export const ThisDayInfo = () => {
+  const { weatherData } = useContext(WeatherContext);
+
+  const temp = Math.floor((weatherData.main.temp - 273.15).toFixed(2));
+  const feelsLikeTemp = Math.floor((weatherData.main.feels_like - 273.15).toFixed(2));
+  const pressure = Math.floor(0.750062 * weatherData.main.pressure);
+  const humidity = weatherData.main.humidity;
+
   const items = [
     {
       icon_id: 'temp',
       name: 'Температура',
-      value: '20° - ощущается как 17°',
+      value: `${temp}° - ощущается как ${feelsLikeTemp}°`,
     },
     {
       icon_id: 'pressure',
       name: 'Давление',
-      value: '765 мм ртутного столба - нормальное',
+      value: `${pressure} мм ртутного столба - нормальное`,
     },
     {
       icon_id: 'precipitation',
       name: 'Осадки',
-      value: 'Без осадков',
+      value: `${humidity}%`,
     },
     {
       icon_id: 'wind',
       name: 'Ветер',
-      value: '3 м/с юго-запад - легкий ветер',
+      value: `${windConfig(weatherData.wind.speed, weatherData.wind.deg)}`,
     },
   ];
 

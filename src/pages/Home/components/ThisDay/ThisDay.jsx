@@ -1,20 +1,22 @@
 import React, { useContext, useEffect, useState } from 'react';
 import s from './ThisDay.module.sass';
 import { GlobalSvgSelector } from '../../../../assets/icons/global/GlobalSvgSelector';
-import { WeatherDataContext } from '../../../../shared/Header/Header';
+import { WeatherContext } from '../../../../context/weatherData';
+import timeConverter  from '../../../../model/utils';
 
 
 export const ThisDay = () => {
+  const { weatherData } = useContext(WeatherContext);
   const [cityName, setCityName] = useState('Санкт-Петербург');
   const [temp, setTemp] = useState(20);
 
- /* useEffect(() => {
+  useEffect(() => {
     if (weatherData && weatherData.name) {
       setCityName(weatherData.name);
       setTemp(weatherData.main.temp - 273.15)
-      //console.log(weatherData)
+      console.log(weatherData)
     }
-  }, [weatherData]); */
+  }, [weatherData]); 
 
   return (
     <div className={s.this__day}>
@@ -27,7 +29,7 @@ export const ThisDay = () => {
       </div>
       <div className={s.bottom__block}>
         <div className={s.this__time}>
-          Время: <span>21:55</span>
+          Время: <span>{timeConverter(Math.floor(Date.now() / 1000))}</span>
         </div>
         <div className={s.this__city}>
           Город: <span>{cityName}</span>
