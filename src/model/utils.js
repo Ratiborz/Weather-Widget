@@ -41,4 +41,12 @@ export function windConfig(speed, deg) {
   return `${Math.floor(speed)} м/с ${direction} - ${description}`;
 }
 
+export function dayTime(dt_txt, numbDay) {
+  const months = ['янв', 'фев', 'мар', 'апр', 'мая', 'июн', 'июл', 'авг', 'сен', 'окт', 'ноя', 'дек'];
+  const date = new Date(dt_txt);
+  const day = date.getDate();
+  const month = months[date.getMonth()];
+  return `${day + numbDay} ${month}`;
+}
+
 export default timeConverter

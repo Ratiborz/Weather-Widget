@@ -14,7 +14,6 @@ export const ThisDay = () => {
     if (weatherData && weatherData.name) {
       setCityName(weatherData.name);
       setTemp(weatherData.main.temp - 273.15)
-      console.log(weatherData)
     }
   }, [weatherData]); 
 

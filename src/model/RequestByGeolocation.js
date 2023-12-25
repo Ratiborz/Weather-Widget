@@ -1,5 +1,6 @@
 export function requestByGeo() {
   return new Promise((resolve, reject) => {
+    
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition(async (position) => {
         try {
@@ -13,7 +14,8 @@ export function requestByGeo() {
       }, (error) => {
         reject(new Error(`Ошибка получения геопозиции: ${error.message}`)); // Отправляем ошибку через reject
       });
-    } else {
+    } 
+    else {
       reject(new Error('Geolocation не поддерживается')); // Отправляем ошибку через reject
     }
   });

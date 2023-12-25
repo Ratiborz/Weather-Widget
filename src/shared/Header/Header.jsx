@@ -46,7 +46,6 @@ const handleRequestCity = async () => {
 const handleRequestGeo =  async () => {
   const data = await requestByGeo();
   setWeatherData(data);
-  console.log(data)
 }
 
   return (

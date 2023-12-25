@@ -6,7 +6,7 @@ import { Tabs } from './Tabs';
 
 export const Days = () => {
   const days = [
-    {
+      {
         day_common: 'Сегодня',
         day_info: '20 дек',
         icon_id: 'sun',
@@ -51,8 +51,8 @@ export const Days = () => {
     <>
     <Tabs />
     <div className={s.days}>{
-        days.map((day) => (
-            <Card key={day.day_common} day={day} />
+        days.map((day, index) => (
+            <Card key={day.day_common} day={day} numbDay={index} />
         )) 
     }</div>
     </>
