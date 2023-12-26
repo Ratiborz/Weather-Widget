@@ -49,4 +49,70 @@ export function dayTime(dt_txt, numbDay) {
   return `${day + numbDay} ${month}`;
 }
 
+export function findMaxTemperature(forecastData, numbDay) {
+  const dailyMaxTemperatures = [];
+
+  const todayDate = new Date();
+  const targetDate = new Date();
+  targetDate.setDate(todayDate.getDate() + numbDay);
+
+  forecastData.forEach((forecast) => {
+    const forecastDate = new Date(forecast.dt * 1000);
+    if (forecastDate.getDate() === targetDate.getDate()) {
+      dailyMaxTemperatures.push(forecast.main.temp_max);
+    }
+  });
+
+  return Math.floor((Math.max(...dailyMaxTemperatures) - 273.15).toFixed(2));
+}
+
+export function findMinTemperature(forecastData, numbDay) {
+  const dailyMinTemperatures = [];
+
+  const todayDate = new Date();
+  const targetDate = new Date();
+  targetDate.setDate(todayDate.getDate() + numbDay);
+
+  forecastData.forEach((forecast) => {
+    const forecastDate = new Date(forecast.dt * 1000);
+    if (forecastDate.getDate() === targetDate.getDate()) {
+      dailyMinTemperatures.push(forecast.main.temp_min);
+    }
+  });
+
+  return Math.floor((Math.min(...dailyMinTemperatures) - 273.15).toFixed(2));
+}
+
+export function findDescription(forecastData, numbDay) {
+  const dailyDescriptions = {};
+
+  const todayDate = new Date();
+  const targetDate = new Date();
+  targetDate.setDate(todayDate.getDate() + numbDay);
+
+  forecastData.forEach((forecast) => {
+    const forecastDate = new Date(forecast.dt * 1000);
+    if (forecastDate.getDate() === targetDate.getDate()) {
+      const dateKey = forecastDate.getDate();
+      dailyDescriptions[dateKey] = forecast.weather[0].description;
+    }
+  });
+
+  return dailyDescriptions[targetDate.getDate()];
+}
+
+export function findIcon(forecastData, numbDay) {
+  const todayDate = new Date();
+  const targetDate = new Date();
+  targetDate.setDate(todayDate.getDate() + numbDay);
+
+  for (let i = 0; i < forecastData.length; i++) {
+    const forecast = forecastData[i];
+    const forecastDate = new Date(forecast.dt * 1000);
+    if (forecastDate.getDate() === targetDate.getDate()) {
+      return forecast.weather[0].main;
+    }
+  }
+}
+
 export default timeConverter

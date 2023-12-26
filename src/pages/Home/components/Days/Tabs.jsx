@@ -12,7 +12,6 @@ export const Tabs = () => {
   const handleFiveDaysWeather = async () => {
     const data = await requestFiveDaysWeather(weatherData);
     setWeatherFive(data);
-    console.log(weatherFive)
   }
 
   return (
