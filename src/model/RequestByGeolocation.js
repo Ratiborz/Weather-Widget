@@ -12,7 +12,12 @@ export function requestByGeo() {
           reject(error); // Отправляем ошибку через reject
         }
       }, (error) => {
-        reject(new Error(`Ошибка получения геопозиции: ${error.message}`)); // Отправляем ошибку через reject
+        if (error.code === error.PERMISSION_DENIED) {
+          // Выводим алерт с сообщением об отказе разрешения получения геопозиции
+          alert('Вы отказали в предоставлении геопозиции. Пожалуйста, укажите ваш город вручную.');
+        } else {
+          reject(new Error(`Ошибка получения геопозиции: ${error.message}`)); // Отправляем другие ошибки через reject
+        }
       });
     } 
     else {
@@ -23,7 +28,7 @@ export function requestByGeo() {
 
 async function requestGeolocation(latitude, longitude) {
     try {
-        const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=aa302d9baf187e648240b52a933d9fdc&lang=ru`;
+        const url = `${process.env.REACT_APP_API_URL}/weather?lat=${latitude}&lon=${longitude}&appid=${process.env.REACT_APP_API_KEY}&lang=ru`;
 
         const response = await fetch(url);
         if (!response.ok) {

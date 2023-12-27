@@ -23,7 +23,7 @@ export function requestFiveDaysWeather(weatherData) {
 
 async function requestFiveDays(latitude, longitude) {
   try {
-      const url = ` https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=aa302d9baf187e648240b52a933d9fdc&lang=ru`;
+      const url = `${process.env.REACT_APP_API_URL}/forecast?lat=${latitude}&lon=${longitude}&appid=${process.env.REACT_APP_API_KEY}&lang=ru`;
 
       const response = await fetch(url);
       if (!response.ok) {
