@@ -1,4 +1,3 @@
-
 export async function requestByCity(city) {
   if (city.replace(/\s/g, "").length > 0) {
     try {
@@ -14,7 +13,6 @@ export async function requestByCity(city) {
         return data;
     } catch (error) {
         console.error('Error fetching data: ', error);
-        return null;
     }
   }
   else {

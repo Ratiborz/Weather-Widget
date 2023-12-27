@@ -72,14 +72,24 @@
 .cancel
     margin-right: 0
     border: none
+    transition: .3s
     &:active
         background: $primary-color
         color: #fff
+    &:hover 
+        transform: translateY(-3px) translateX(3px)
+        background-color: #9944ac
+        transition: .3s
 
 .tab
+    transition: .3s
     &:active
         background: $primary-color
         color: #fff
+    &:hover 
+        transform: translateY(-3px) translateX(3px)
+        background-color: #9944ac
+        transition: .3s
 
 .tabs__wrapper
     display: flex

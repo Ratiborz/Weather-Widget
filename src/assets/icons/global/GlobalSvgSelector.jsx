@@ -304,7 +304,7 @@ export const GlobalSvgSelector = ({ id }) => {
                 );
         case 'Snow':
           return (
-            <svg width="48px" height="48px" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"  aria-hidden="true" role="img" class="iconify iconify--emojione">
+            <svg width="48px" height="48px" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"  aria-hidden="true" role="img" className="iconify iconify--emojione">
 
               <g fill="#75d6ff">
 

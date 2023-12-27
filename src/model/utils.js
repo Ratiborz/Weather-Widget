@@ -41,12 +41,25 @@ export function windConfig(speed, deg) {
   return `${Math.floor(speed)} м/с ${direction} - ${description}`;
 }
 
+export function FindDayCommon(forecastData, numbDay) {
+  if (numbDay === 0) {
+    return 'Сегодня';
+  } else if (numbDay === 1) {
+    return 'Завтра';
+  } else {
+    const date = new Date(forecastData[numbDay * 8].dt * 1000);
+    const daysOfWeek = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
+    return daysOfWeek[date.getDay()];
+  }
+}
+
 export function dayTime(dt_txt, numbDay) {
   const months = ['янв', 'фев', 'мар', 'апр', 'мая', 'июн', 'июл', 'авг', 'сен', 'окт', 'ноя', 'дек'];
   const date = new Date(dt_txt);
+  date.setDate(date.getDate() + numbDay); // увеличиваем дату на numbDay дней
   const day = date.getDate();
   const month = months[date.getMonth()];
-  return `${day + numbDay} ${month}`;
+  return `${day} ${month}`;
 }
 
 export function findMaxTemperature(forecastData, numbDay) {
@@ -62,7 +75,6 @@ export function findMaxTemperature(forecastData, numbDay) {
       dailyMaxTemperatures.push(forecast.main.temp_max);
     }
   });
-
   return Math.floor((Math.max(...dailyMaxTemperatures) - 273.15).toFixed(2));
 }
 
@@ -79,7 +91,6 @@ export function findMinTemperature(forecastData, numbDay) {
       dailyMinTemperatures.push(forecast.main.temp_min);
     }
   });
-
   return Math.floor((Math.min(...dailyMinTemperatures) - 273.15).toFixed(2));
 }
 

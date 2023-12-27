@@ -1,19 +1,24 @@
 export function requestFiveDaysWeather(weatherData) {
-  return new Promise((resolve, reject) => {
-    const latitude = weatherData.coord.lat;
-    const longitude = weatherData.coord.lon;
-    
-    // Вызываем асинхронную функцию requestFiveDays и обрабатываем результаты
-    requestFiveDays(latitude, longitude)
-      .then(data => {
-        // В случае успеха разрешаем обещание с полученными данными
-        resolve(data);
-      })
-      .catch(error => {
-        // В случае ошибки отклоняем обещание с ошибкой
-        reject(error);
-      });
-  });
+  if (weatherData) {
+    return new Promise((resolve, reject) => {
+      const latitude = weatherData.coord.lat;
+      const longitude = weatherData.coord.lon;
+      
+      // Вызываем асинхронную функцию requestFiveDays и обрабатываем результаты
+      requestFiveDays(latitude, longitude)
+        .then(data => {
+          // В случае успеха разрешаем обещание с полученными данными
+          resolve(data);
+        })
+        .catch(error => {
+          // В случае ошибки отклоняем обещание с ошибкой
+          reject(error);
+        });
+    });
+  } 
+  else {
+    alert('Введите название города')
+  }
 }
 
 async function requestFiveDays(latitude, longitude) {

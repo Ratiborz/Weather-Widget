@@ -4,7 +4,7 @@ import { Card } from './Card';
 import { Tabs } from './Tabs';
 
 
-export const Days = () => {
+export const Days = ({showDays, setShowDays}) => {
   const days = [
       {
         day_common: 'Сегодня',
@@ -49,12 +49,14 @@ export const Days = () => {
   ]
   return (
     <>
-    <Tabs />
-    <div className={s.days}>{
-        days.map((day, index) => (
-            <Card key={day.day_common} day={day} numbDay={index} />
-        )) 
-    }</div>
+    <Tabs showDays={showDays} setShowDays={setShowDays} />
+    {showDays && (
+      <div className={s.days}>{
+          days.map((day, index) => (
+              <Card key={day.day_common} numbDay={index} />
+          )) 
+      }</div>
+    )}
     </>
   )
 }

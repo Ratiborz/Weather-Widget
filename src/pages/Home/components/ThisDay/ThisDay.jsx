@@ -9,11 +9,14 @@ export const ThisDay = () => {
   const { weatherData } = useContext(WeatherContext);
   const [cityName, setCityName] = useState('Санкт-Петербург');
   const [temp, setTemp] = useState(20);
+  const [iconId, setIconId] = useState('Clear');
+  
 
   useEffect(() => {
     if (weatherData && weatherData.name) {
       setCityName(weatherData.name);
       setTemp(weatherData.main.temp - 273.15)
+      setIconId(weatherData.weather[0].main);
     }
   }, [weatherData]); 
 
@@ -24,7 +27,7 @@ export const ThisDay = () => {
           <div className={s.this__temp}>{Math.floor(temp.toFixed(2))}°</div>
           <div className={s.this__day_name}>Сегодня</div>
         </div>
-        <GlobalSvgSelector id="sun" />
+        <GlobalSvgSelector id={iconId} />
       </div>
       <div className={s.bottom__block}>
         <div className={s.this__time}>
