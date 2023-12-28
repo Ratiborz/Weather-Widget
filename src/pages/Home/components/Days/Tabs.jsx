@@ -20,7 +20,6 @@ export const Tabs = ({showDays, setShowDays}) => {
 
   const cancelFiveDaysForecast = () => {
       setShowDays(false);
-      console.log(showDays)
   }
 
   return (

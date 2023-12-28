@@ -19,25 +19,28 @@ export function windConfig(speed, deg) {
   }
   
   // Преобразование направления из градусов в направление
-  let direction = "неизвестное направление";
-  if (deg >= 337.5 || deg < 22.5) {
-      direction = "северное";
-  } else if (deg >= 22.5 && deg < 67.5) {
+  let direction = "";
+  switch (deg) {
+    case (deg >= 337.5 || deg < 22.5):
+       direction = "северное";
+    case (deg >= 22.5 && deg < 67.5): 
       direction = "северо-восточное";
-  } else if (deg >= 67.5 && deg < 112.5) {
+    case (deg >= 67.5 && deg < 112.5): 
       direction = "восточное";
-  } else if (deg >= 112.5 && deg < 157.5) {
+    case (deg >= 112.5 && deg < 157.5): 
       direction = "юго-восточное";
-  } else if (deg >= 157.5 && deg < 202.5) {
+    case (deg >= 157.5 && deg < 202.5): 
       direction = "южное";
-  } else if (deg >= 202.5 && deg < 247.5) {
+    case (deg >= 202.5 && deg < 247.5): 
       direction = "юго-западное";
-  } else if (deg >= 247.5 && deg < 292.5) {
+    case (deg >= 247.5 && deg < 292.5): 
       direction = "западное";
-  } else if (deg >= 292.5 && deg < 337.5) {
+    case (deg >= 292.5 && deg < 337.5): 
       direction = "северо-западное";
+    default:
+      direction = "неизвестное направление";
   }
-  
+
   return `${Math.floor(speed)} м/с ${direction} - ${description}`;
 }
 

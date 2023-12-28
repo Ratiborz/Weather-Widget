@@ -8,34 +8,40 @@ import { FindDayCommon, dayTime, findDescription, findIcon, findMaxTemperature, 
 export const Card = ({numbDay}) => {
   const { weatherFive } = useContext(WeatherContext);
 
-  const [dayCommon, setDayCommon] = useState('Сегодня');
-  const [dayInfo, setDayInfo] = useState(20);
-  const [iconId, setIconId] = useState('Clear');
-  const [maxTemp, setMaxTemp] = useState(17);
-  const [minTemp, setMinTemp] = useState(13);
-  const [description, setDescription] = useState('Облачно');
+  const [weatherData, setWeatherData] = useState({
+    dayCommon: "Сегодня",
+    dayInfo: 20,
+    iconId: "Clear",
+    maxTemp: 17,
+    minTemp: 13,
+    description: "Облачно",
+  });
 
   useEffect(() => {
     if (weatherFive) {
-      setDayCommon(FindDayCommon(weatherFive.list, numbDay));
-      setDayInfo(dayTime(weatherFive.list[0].dt_txt, numbDay));
-      setIconId(findIcon(weatherFive.list, numbDay));
-      setMaxTemp(findMaxTemperature(weatherFive.list, numbDay));
-      setMinTemp(findMinTemperature(weatherFive.list, numbDay));
-      setDescription(findDescription(weatherFive.list, numbDay));
+      const newWeatherData = {
+        dayCommon: FindDayCommon(weatherFive.list, numbDay),
+        dayInfo: dayTime(weatherFive.list[0].dt_txt, numbDay),
+        iconId: findIcon(weatherFive.list, numbDay),
+        maxTemp: findMaxTemperature(weatherFive.list, numbDay),
+        minTemp: findMinTemperature(weatherFive.list, numbDay),
+        description: findDescription(weatherFive.list, numbDay),
+      };
+  
+      setWeatherData(prevWeatherData => ({ ...prevWeatherData, ...newWeatherData }));
     }
   }, [weatherFive]);
 
   return (
     <div className={s.card}>
-        <div className={s.day}>{dayCommon}</div>
-        <div className={s.day__info}>{dayInfo}</div>
+        <div className={s.day}>{weatherData.dayCommon}</div>
+        <div className={s.day__info}>{weatherData.dayInfo}</div>
         <div className={s.img}>
-            <GlobalSvgSelector id={iconId} />
+            <GlobalSvgSelector id={weatherData.iconId} />
         </div>
-        <div className={s.temp__day}>{maxTemp}°</div>
-        <div className={s.temp__night}>{minTemp}°</div>
-        <div className={s.info}>{description}</div>
+        <div className={s.temp__day}>{weatherData.maxTemp}°</div>
+        <div className={s.temp__night}>{weatherData.minTemp}°</div>
+        <div className={s.info}>{weatherData.description}</div>
     </div>
   )
 }

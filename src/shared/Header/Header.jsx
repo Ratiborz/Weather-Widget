@@ -48,6 +48,12 @@ const handleRequestGeo =  async () => {
   setWeatherData(data);
 }
 
+const handleEnterKeyPress = (event) => {
+  if (event.key === 'Enter') {
+    handleRequestCity();
+  }
+};
+
   return (
       <header className={s.header}>
           <div className={s.wrapper}>
@@ -64,7 +70,7 @@ const handleRequestGeo =  async () => {
               <GlobalSvgSelector id="geolocation"  />
             </div>
             <div className={s.send__form}>
-              <input className={s.select} placeholder='Город...' value={city} onChange={handleCityChange} type="text" style={changeStyleInput()} />
+              <input className={s.select} placeholder='Город...' value={city} onChange={handleCityChange} onKeyDown={handleEnterKeyPress} type="text" style={changeStyleInput()} />
               <button className={s.send__select} style={changeStyleInput()} onClick={handleRequestCity}> Отправить</button>
             </div>
           </div>
